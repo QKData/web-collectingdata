@@ -1,0 +1,13 @@
+.form-group {
+    display: flex;
+    padding: 0.5rem;
+}
+
+form.was-submitted input.invalid {
+  border-color: #990000;
+  background-color: #ffdddd;
+}
+
+form.was-submitted input.invalid:focus {
+  outline: none;
+}

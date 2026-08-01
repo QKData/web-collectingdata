@@ -7,7 +7,17 @@ const passwordConfirm = document.getElementById("passwordConfirm");
 
 infoForm.noValidate = true;
 
+function updateFieldState() {
+    const fields = [email, country, postalCode, password, passwordConfirm];
+
+    fields.forEach((field) => {
+        field.classList.toggle("invalid", !field.checkValidity());
+    });
+}
+
 infoForm.addEventListener("submit", (event) => {
+    infoForm.classList.add("was-submitted");
+
     const zipCodePattern = /^\d{5}(?:-\d{4})?$/;
     const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
 
@@ -41,8 +51,16 @@ infoForm.addEventListener("submit", (event) => {
         passwordConfirm.setCustomValidity("");
     }
 
+    updateFieldState();
+
     if (!infoForm.checkValidity()) {
         event.preventDefault();
         infoForm.reportValidity();
     }
+});
+
+["input", "change"].forEach((eventType) => {
+    infoForm.addEventListener(eventType, () => {
+        updateFieldState();
+    });
 });
